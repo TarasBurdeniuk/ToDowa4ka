@@ -1,0 +1,12 @@
+.Body {
+    display: flex;
+
+    &-formContainer {
+        max-width: 300px;
+    }
+
+    &-listContainer {
+        padding: 20px;
+        flex-grow: 1;
+    }
+}

@@ -1,0 +1,29 @@
+.Form {
+
+    display: flex;
+    padding: 10px;
+
+    textarea {
+        resize: none;
+    }
+
+    &-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-label {
+        width: 7em;
+        margin: 0.5rem;
+        font-size: 1.5rem;
+        color: gray;
+    }
+
+    &-input {
+        border: 1px solid darkgray;
+        border-radius: 0.3rem;
+        flex-grow: 1;
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+}
