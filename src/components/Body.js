@@ -1,8 +1,8 @@
 import React from 'react';
 
 import '../style/Body.style.scss'
-import Form from "./Form";
-import TodoList from "./TodoList";
+import Form from "../container/Form";
+import TodoList from "../container/TodoList";
 
 
 class Body extends React.Component {

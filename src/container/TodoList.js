@@ -3,7 +3,7 @@ import {PropTypes} from 'prop-types';
 import {connect} from "react-redux";
 import {deleteTodo} from '../action/deleteTodo';
 
-import TodoListItem from './TodoListItem';
+import TodoListItem from '../components/TodoListItem';
 import '../style/TodoList.style.scss';
 
 class TodoList extends Component {
