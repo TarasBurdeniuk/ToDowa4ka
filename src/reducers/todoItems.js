@@ -3,15 +3,22 @@ import {DELETE_TODO} from '../action/deleteTodo';
 import {CHANGE_DESCRIPTION} from '../action/changeDescription';
 import {CHANGE_TITLE} from '../action/changeTitle';
 import {SEARCH_TODO} from "../action/searchTodo";
+import {load} from 'redux-localstorage-simple';
 
-const initialState = {
-    title: '',
-    description: '',
-    todoList: [],
-    searchingTodo: []
-};
+let TASKS = load({namespace: 'todo-list'});
 
-const todoItems = (state = initialState, action) => {
+if (!TASKS || !TASKS.todoItems) {
+    TASKS = {
+        todoItems: {
+            title: '',
+            description: '',
+            todoList: [],
+            searchingTodo: []
+        }
+    }
+}
+
+const todoItems = (state = TASKS.todoItems, action) => {
     switch (action.type) {
         case CHANGE_TITLE:
             return {...state, title: action.payload};
