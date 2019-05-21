@@ -6,7 +6,7 @@ import {changeDescription} from '../action/changeDescription';
 import {changeTitle} from '../action/changeTitle';
 
 
-import ButtonForm from './ButtonForm';
+import ButtonForm from '../components/ButtonForm';
 import '../style/Form.style.scss';
 
 class Form extends Component {

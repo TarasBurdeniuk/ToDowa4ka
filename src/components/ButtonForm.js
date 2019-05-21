@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -30,8 +30,8 @@ class ButtonForm extends React.Component {
     }
 }
 
-// ButtonForm.propTypes = {
-//     classes: PropTypes.object.isRequired,
-// };
+ButtonForm.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
 export default withStyles(styles)(ButtonForm);
