@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { searchTodo } from '../action/searchTodo';
 
@@ -12,7 +12,6 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
@@ -47,7 +46,6 @@ class PrimarySearchAppBar extends React.Component {
 		this.setState({ mobileMoreAnchorEl: null });
 		console.log('handleMobileMenuClose');
 	};
-
 
 	render() {
 		const { anchorEl, mobileMoreAnchorEl, ring } = this.state;
@@ -105,14 +103,6 @@ class PrimarySearchAppBar extends React.Component {
 			<div className={classes.root}>
 				<AppBar position="static">
 					<Toolbar>
-						<IconButton
-							className={classes.menuButton}
-							color="inherit"
-							aria-label="Open drawer"
-							onClick={(e) => console.log(e.target)}
-						>
-							<MenuIcon/>
-						</IconButton>
 						<Typography className={classes.title} variant="h6" color="inherit" noWrap>
 							ToDowa4ka
 						</Typography>
@@ -131,7 +121,6 @@ class PrimarySearchAppBar extends React.Component {
 								}}
 								onBlur={(e) => {
 									e.target.value = '';
-									// setTimeout(searchTodo(todoList, e.target.value), 200);
 									searchTodo(todoList, e.target.value);
 								}}
 							/>
@@ -142,11 +131,6 @@ class PrimarySearchAppBar extends React.Component {
 							<IconButton color="inherit">
 								<Badge badgeContent={todoList.length} color="secondary">
 									<MailIcon/>
-								</Badge>
-							</IconButton>
-							<IconButton color="inherit">
-								<Badge badgeContent={ring} color="secondary">
-									<NotificationsIcon/>
 								</Badge>
 							</IconButton>
 							<IconButton
@@ -176,11 +160,9 @@ PrimarySearchAppBar.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (store) => {
-	return {
-		todoList: store.todoItems.todoList,
-	};
-};
+const mapStateToProps = (store) => ({
+	todoList: store.todoItems.todoList,
+});
 
 const mapDispatchToProps = {
 	searchTodo,
