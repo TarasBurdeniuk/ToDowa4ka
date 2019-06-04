@@ -1,8 +1,11 @@
-import { ADD_TODO } from '../action/addTodo';
-import { DELETE_TODO } from '../action/deleteTodo';
-import { CHANGE_DESCRIPTION } from '../action/changeDescription';
-import { CHANGE_TITLE } from '../action/changeTitle';
-import { SEARCH_TODO } from '../action/searchTodo';
+import {
+	ADD_TODO,
+	DELETE_TODO,
+	CHANGE_DESCRIPTION,
+	CHANGE_TITLE,
+	SEARCH_TODO,
+} from '../action/types';
+
 import { load } from 'redux-localstorage-simple';
 
 let TASKS = load({ namespace: 'todo-list' });

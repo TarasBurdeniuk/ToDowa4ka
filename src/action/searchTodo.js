@@ -1,4 +1,4 @@
-export const SEARCH_TODO = 'SEARCH_TODO';
+import { SEARCH_TODO } from './types';
 
 export const searchTodo = (todoLIst, searchingWord) => {
 	const newTodoList = todoLIst.filter(item => {

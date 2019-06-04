@@ -5,7 +5,9 @@
 
     &-item {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+
+        //justify-content: space-between;
 
         border: 1px solid grey;
         border-radius: 0.3rem;
@@ -15,7 +17,8 @@
 
     &-itemBlock {
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 10px;
     }
 
     &-itemTitle {
@@ -26,7 +29,7 @@
 
     &-itemDescription {
         margin: 0;
-        color: darkgray;
+        color: grey;
     }
 
     &-itemButton {
@@ -38,7 +41,6 @@
         font-size: 12px;
         height: 30px;
         padding: 0 30px;
-        margin-left: 10px;
         box-shadow: 0 2px 3px 2px rgba(120, 117, 111, 0.3);
         text-transform: uppercase;
 

@@ -1,4 +1,4 @@
-export const DELETE_TODO = 'DELETE_TODO';
+import { DELETE_TODO } from './types';
 
 export const deleteTodo = (list, id) => {
 	const newList = list.filter(item => item.id !== id);

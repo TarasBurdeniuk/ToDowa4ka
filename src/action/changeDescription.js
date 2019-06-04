@@ -1,4 +1,4 @@
-export const CHANGE_DESCRIPTION = 'CHANGE_DESCRIPTION';
+import { CHANGE_DESCRIPTION } from './types';
 
 export const changeDescription = (newDescription) => {
 	return {

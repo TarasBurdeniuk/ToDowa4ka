@@ -1,4 +1,4 @@
-export const CHANGE_TITLE = 'CHANGE_TITLE';
+import { CHANGE_TITLE } from './types';
 
 export const changeTitle = (newTitle) => {
 	return {

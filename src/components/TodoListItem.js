@@ -13,14 +13,13 @@ const TodoListItem = ({ id, title, description, completed, removeTodo }) => {
 		<li className={itemClassName} id={id}>
 			<div className='TodoList-itemBlock'>
 				<strong className='TodoList-itemTitle'>{title}</strong>
-				<p className='TodoList-itemDescription'>{description}</p>
+				<button
+					className='TodoList-itemButton'
+					onClick={removeTodo}
+				>Remove
+				</button>
 			</div>
-
-			<button
-				className='TodoList-itemButton'
-				onClick={removeTodo}
-			>Remove
-			</button>
+			<p className='TodoList-itemDescription'>{description}</p>
 		</li>
 	);
 };
