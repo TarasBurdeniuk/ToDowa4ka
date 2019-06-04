@@ -33,16 +33,18 @@
         background: #f53e7e;
         border-radius: 3px;
         border: 0;
+        box-sizing: border-box;
         color: white;
         font-size: 12px;
         height: 30px;
         padding: 0 30px;
         margin-left: 10px;
-        box-shadow: 0 3px 5px 2px rgba(120, 117, 111, 0.3);
+        box-shadow: 0 2px 3px 2px rgba(120, 117, 111, 0.3);
         text-transform: uppercase;
 
         &:hover {
             background: #f50057;
+            cursor: pointer;
         }
     }
 }
