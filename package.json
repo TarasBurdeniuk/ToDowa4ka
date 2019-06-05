@@ -1,46 +1,37 @@
 {
     "name": "todowa4ka",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "@material-ui/core": "^3.9.3",
-        "@material-ui/icons": "^3.0.2",
-        "classnames": "^2.2.6",
-        "immutable": "^4.0.0-rc.12",
-        "node-sass": "^4.12.0",
-        "react": "^16.8.6",
-        "react-dom": "^16.8.6",
-        "react-redux": "^7.0.3",
-        "react-scripts": "3.0.1",
-        "redux": "^4.0.1",
-        "redux-localstorage-simple": "^2.1.6",
-        "redux-logger": "^3.0.6",
-        "uuid": "^3.3.2"
-    },
+    "version": "1.0.0",
+    "description": "todo app",
+    "main": "server.js",
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "start": "node server",
+        "server": "nodemon server",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
     },
-    "eslintConfig": {
-        "extends": "react-app"
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TarasBurdeniuk/ToDowa4ka.git"
     },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
+    "author": "Taras Burdeniuk",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/TarasBurdeniuk/ToDowa4ka/issues"
+    },
+    "homepage": "https://github.com/TarasBurdeniuk/ToDowa4ka#readme",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "config": "^3.1.0",
+        "express": "^4.17.1",
+        "express-validator": "^5.3.1",
+        "gravatar": "^1.8.0",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.5.12",
+        "request": "^2.88.0"
     },
     "devDependencies": {
-        "enzyme": "^3.9.0",
-        "enzyme-adapter-react-16": "^1.13.2",
-        "redux-devtools-extension": "^2.13.8"
+        "concurrently": "^4.1.0",
+        "nodemon": "^1.19.1"
     }
 }
