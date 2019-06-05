@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { addTodo } from '../action/addTodo';
 import { changeDescription } from '../action/changeDescription';
 import { changeTitle } from '../action/changeTitle';
-
-
 import ButtonForm from '../components/ButtonForm';
 import '../style/Form.style.scss';
 
@@ -32,7 +30,7 @@ const Form = ({ addTodo, title, description, changeTitle, changeDescription }) =
 						id='todoTitle'
 						value={title}
 						onChange={(e) => changeTitle(e.target.value)}
-						maxLength='30'
+						maxLength='20'
 					/>
 				</div>
 				<div className='Form-group'>

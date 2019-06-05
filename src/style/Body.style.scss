@@ -9,4 +9,10 @@
         padding: 20px;
         flex-grow: 1;
     }
+
+    @media screen and (max-device-width: 900px) {
+        flex-direction: column;
+        align-items: center;
+    }
 }
+
