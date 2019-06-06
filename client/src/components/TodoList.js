@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { deleteTodo } from '../action/deleteTodo';
 
 import TodoListItem from '../components/TodoListItem';
-import '../style/TodoList.style.scss';
+import '../styles/TodoList.style.scss';
 
 const TodoList = ({ todoList, deleteTodo, searchingTodo }) => {
 	const itemsTodoList = todoList.map(item =>

@@ -5,9 +5,14 @@ import { addTodo } from '../action/addTodo';
 import { changeDescription } from '../action/changeDescription';
 import { changeTitle } from '../action/changeTitle';
 import ButtonForm from '../components/ButtonForm';
-import '../style/Form.style.scss';
+import '../styles/Form.style.scss';
 
-const Form = ({ addTodo, title, description, changeTitle, changeDescription }) => {
+import InputBase from '@material-ui/core/InputBase';
+import { searchTodo } from '../action/searchTodo';
+import { styles } from '../styles/Header.style';
+import { withStyles } from '@material-ui/core/styles';
+
+const Form = ({ classes, addTodo, title, description, changeTitle, changeDescription, searchTodo, todoList }) => {
 	return (
 		<div className='Form'>
 			<form
@@ -18,6 +23,20 @@ const Form = ({ addTodo, title, description, changeTitle, changeDescription }) =
 				}}
 			>
 				<div className='Form-group'>
+					<InputBase
+						placeholder="Search…"
+						classes={{
+							root: classes.inputRoot,
+							input: classes.inputInput,
+						}}
+						onChange={(e) => {
+							searchTodo(todoList, e.target.value);
+						}}
+						onBlur={(e) => {
+							e.target.value = '';
+							searchTodo(todoList, e.target.value);
+						}}
+					/>
 					<label
 						className='Form-label'
 						htmlFor='todoTitle'
@@ -57,17 +76,22 @@ const Form = ({ addTodo, title, description, changeTitle, changeDescription }) =
 
 Form.propTypes = {
 	addTodo: PropTypes.func.isRequired,
+	searchTodo: PropTypes.func.isRequired,
+	changeDescription: PropTypes.func.isRequired,
+	changeTitle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (store) => ({
 	title: store.todoItems.title,
 	description: store.todoItems.description,
+	todoList: store.todoItems.todoList,
 });
 
 const mapDispatchToProps = {
 	addTodo,
 	changeDescription,
 	changeTitle,
+	searchTodo,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Form));
