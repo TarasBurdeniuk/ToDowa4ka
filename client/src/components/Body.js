@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../style/Body.style.scss';
+import '../styles/Body.style.scss';
 import Form from './Form';
 import TodoList from './TodoList';
 

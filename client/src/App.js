@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PrimarySearchAppBar from './components/Header';
 import Body from './components/Body';
-import './style/App.style.scss';
+import './styles/App.style.scss';
 
 function App() {
 	return (

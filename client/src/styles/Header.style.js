@@ -12,7 +12,7 @@ export const styles = theme => ({
 		marginRight: 20,
 	},
 	title: {
-		display: 'none',
+		fontSize: '20px',
 		[theme.breakpoints.up('sm')]: {
 			display: 'block',
 		},
@@ -49,12 +49,11 @@ export const styles = theme => ({
 		paddingTop: theme.spacing.unit,
 		paddingRight: theme.spacing.unit,
 		paddingBottom: theme.spacing.unit,
-		paddingLeft: theme.spacing.unit * 10,
+		paddingLeft: theme.spacing.unit * 2,
 		transition: theme.transitions.create('width'),
 		width: '100%',
-		[theme.breakpoints.up('md')]: {
-			width: 200,
-		},
+		backgroundColor: 'lightgray',
+		borderRadius: '0.3rem',
 	},
 	sectionDesktop: {
 		display: 'none',
