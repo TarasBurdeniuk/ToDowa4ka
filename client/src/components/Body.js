@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../styles/Body.style.scss';
 import Form from './Form';
-import TodoList from './TodoList';
+import NoteList from './NoteList';
 
 
 const Body = () =>
@@ -11,7 +11,7 @@ const Body = () =>
 			<Form/>
 		</div>
 		<div className='Body-listContainer'>
-			<TodoList/>
+			<NoteList/>
 		</div>
 	</div>;
 

@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +10,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import { register } from '../action/auth';
+import { PropTypes } from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -35,8 +39,32 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function Register() {
+const Register = ({ register, isAuthenticated }) => {
 	const classes = useStyles();
+
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		password: '',
+		password2: '',
+	});
+
+	const { name, email, password, password2 } = formData;
+
+	const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+	const onSubmit = async e => {
+		e.preventDefault();
+		if (password !== password2 || !name || !email) {
+			console.error('Password do not match');
+		} else {
+			register({ name, email, password });
+		}
+	};
+
+	if (isAuthenticated) {
+		return <Redirect to='/notes'/>;
+	}
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -48,7 +76,7 @@ function Register() {
 				<Typography component="h1" variant="h5">
 					Sign up
 				</Typography>
-				<form className={classes.form} noValidate>
+				<form className={classes.form} noValidate onSubmit={e => onSubmit(e)}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField
@@ -57,7 +85,8 @@ function Register() {
 								fullWidth
 								label="Name"
 								name="name"
-								autoComplete="name"
+								value={name}
+								onChange={e => onChange(e)}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -68,7 +97,8 @@ function Register() {
 								id="email"
 								label="Email Address"
 								name="email"
-								autoComplete="email"
+								value={email}
+								onChange={e => onChange(e)}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -79,8 +109,9 @@ function Register() {
 								name="password"
 								label="Password"
 								type="password"
-								id="password"
-								autoComplete="current-password"
+								value={password}
+								minLength='6'
+								onChange={e => onChange(e)}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -88,11 +119,12 @@ function Register() {
 								variant="outlined"
 								required
 								fullWidth
-								name="repeat_password"
+								name="password2"
 								label="Repeat Password"
-								type="repeat_password"
-								id="repeat_password"
-								autoComplete="repeat-password"
+								type="password"
+								minLength='6'
+								value={password2}
+								onChange={e => onChange(e)}
 							/>
 						</Grid>
 					</Grid>
@@ -116,6 +148,19 @@ function Register() {
 			</div>
 		</Container>
 	);
-}
+};
 
-export default Register;
+Register.propTypes = {
+	register: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = {
+	register,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

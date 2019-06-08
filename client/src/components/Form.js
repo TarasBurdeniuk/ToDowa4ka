@@ -1,25 +1,22 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { addTodo } from '../action/addTodo';
-import { changeDescription } from '../action/changeDescription';
-import { changeTitle } from '../action/changeTitle';
+import { changeText, addNote, changeTitle,searchNote } from '../action/note';
 import ButtonForm from '../components/ButtonForm';
 import '../styles/Form.style.scss';
 
 import InputBase from '@material-ui/core/InputBase';
-import { searchTodo } from '../action/searchTodo';
 import { styles } from '../styles/Header.style';
 import { withStyles } from '@material-ui/core/styles';
 
-const Form = ({ classes, addTodo, title, description, changeTitle, changeDescription, searchTodo, todoList }) => {
+const Form = ({ classes, addNote, title, text, changeTitle, changeText, searchNote, noteList }) => {
 	return (
 		<div className='Form'>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
-					if (!title || !description) return;
-					addTodo();
+					if (!title || !text) return;
+					addNote();
 				}}
 			>
 				<div className='Form-group'>
@@ -30,23 +27,23 @@ const Form = ({ classes, addTodo, title, description, changeTitle, changeDescrip
 							input: classes.inputInput,
 						}}
 						onChange={(e) => {
-							searchTodo(todoList, e.target.value);
+							searchNote(noteList, e.target.value);
 						}}
 						onBlur={(e) => {
 							e.target.value = '';
-							searchTodo(todoList, e.target.value);
+							searchNote(noteList, e.target.value);
 						}}
 					/>
 					<label
 						className='Form-label'
-						htmlFor='todoTitle'
+						htmlFor='noteTitle'
 					>Title:</label>
 					<input
 						className='Form-input'
 						type='text'
 						name='title'
 						placeholder='Title'
-						id='todoTitle'
+						id='noteTitle'
 						value={title}
 						onChange={(e) => changeTitle(e.target.value)}
 						maxLength='20'
@@ -55,43 +52,43 @@ const Form = ({ classes, addTodo, title, description, changeTitle, changeDescrip
 				<div className='Form-group'>
 					<label
 						className='Form-label'
-						htmlFor='todoDescription'
-					>Description:</label>
+						htmlFor='noteText'
+					>Text:</label>
 					<textarea
 						className='Form-input'
-						name='description'
-						id='todoDescription'
-						placeholder='Description'
+						name='text'
+						id='noteText'
+						placeholder='Text'
 						cols='30'
 						rows='10'
-						value={description}
-						onChange={(e) => changeDescription(e.target.value)}
+						value={text}
+						onChange={(e) => changeText(e.target.value)}
 					/>
 				</div>
-				<ButtonForm type='submit' name='ADD TODO'/>
+				<ButtonForm type='submit' name='ADD NOTE'/>
 			</form>
 		</div>
 	);
 };
 
 Form.propTypes = {
-	addTodo: PropTypes.func.isRequired,
-	searchTodo: PropTypes.func.isRequired,
-	changeDescription: PropTypes.func.isRequired,
+	addNote: PropTypes.func.isRequired,
+	searchNote: PropTypes.func.isRequired,
+	changeText: PropTypes.func.isRequired,
 	changeTitle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (store) => ({
-	title: store.todoItems.title,
-	description: store.todoItems.description,
-	todoList: store.todoItems.todoList,
+	title: store.noteItems.title,
+	text: store.noteItems.text,
+	noteList: store.noteItems.noteList,
 });
 
 const mapDispatchToProps = {
-	addTodo,
-	changeDescription,
+	addNote,
+	changeText,
 	changeTitle,
-	searchTodo,
+	searchNote,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Form));
