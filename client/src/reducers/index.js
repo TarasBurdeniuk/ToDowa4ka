@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import todoItems from './todoItems';
+import noteItems from './noteItems';
+import auth from './auth';
 
 export const rootReducer = combineReducers({
-	todoItems,
+	noteItems,
+	auth
 });

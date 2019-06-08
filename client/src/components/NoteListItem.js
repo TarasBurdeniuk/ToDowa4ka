@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 
 import classNames from 'classnames';
 
-const TodoListItem = ({ id, title, description, completed, removeTodo }) => {
+const NoteListItem = ({ id, title, text, completed, removeNote }) => {
 
 	const itemClassName = classNames('TodoList-item', {
 		'TodoList-item--completed': completed,
@@ -15,21 +15,21 @@ const TodoListItem = ({ id, title, description, completed, removeTodo }) => {
 				<strong className='TodoList-itemTitle'>{title}</strong>
 				<button
 					className='TodoList-itemButton'
-					onClick={removeTodo}
+					onClick={removeNote}
 				>Remove
 				</button>
 			</div>
-			<p className='TodoList-itemDescription'>{description}</p>
+			<p className='TodoList-itemDescription'>{text}</p>
 		</li>
 	);
 };
 
-TodoListItem.propTypes = {
+NoteListItem.propTypes = {
 	id: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
-	description: PropTypes.string.isRequired,
+	text: PropTypes.string.isRequired,
 	completed: PropTypes.bool.isRequired,
-	removeTodo: PropTypes.func.isRequired,
+	removeNote: PropTypes.func.isRequired,
 };
 
-export default TodoListItem;
+export default NoteListItem;
