@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { changeText, addNote, changeTitle,searchNote } from '../action/note';
+import { addNote, searchNote } from '../action/note';
 import ButtonForm from '../components/ButtonForm';
 import '../styles/Form.style.scss';
 
@@ -9,14 +9,25 @@ import InputBase from '@material-ui/core/InputBase';
 import { styles } from '../styles/Header.style';
 import { withStyles } from '@material-ui/core/styles';
 
-const Form = ({ classes, addNote, title, text, changeTitle, changeText, searchNote, noteList }) => {
+const Form = ({ classes, addNote, searchNote, noteList }) => {
+
+	const [formData, setText] = useState({
+		text: '',
+		title: '',
+	});
+
+	const { text, title } = formData;
+
+	const onChange = e => setText({ ...formData, [e.target.name]: e.target.value });
+
 	return (
 		<div className='Form'>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
 					if (!title || !text) return;
-					addNote();
+					addNote(formData);
+					setText({ text: '', title: '' });
 				}}
 			>
 				<div className='Form-group'>
@@ -45,7 +56,7 @@ const Form = ({ classes, addNote, title, text, changeTitle, changeText, searchNo
 						placeholder='Title'
 						id='noteTitle'
 						value={title}
-						onChange={(e) => changeTitle(e.target.value)}
+						onChange={(e) => onChange(e)}
 						maxLength='20'
 					/>
 				</div>
@@ -62,7 +73,7 @@ const Form = ({ classes, addNote, title, text, changeTitle, changeText, searchNo
 						cols='30'
 						rows='10'
 						value={text}
-						onChange={(e) => changeText(e.target.value)}
+						onChange={(e) => onChange(e)}
 					/>
 				</div>
 				<ButtonForm type='submit' name='ADD NOTE'/>
@@ -74,8 +85,6 @@ const Form = ({ classes, addNote, title, text, changeTitle, changeText, searchNo
 Form.propTypes = {
 	addNote: PropTypes.func.isRequired,
 	searchNote: PropTypes.func.isRequired,
-	changeText: PropTypes.func.isRequired,
-	changeTitle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (store) => ({
@@ -86,8 +95,6 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = {
 	addNote,
-	changeText,
-	changeTitle,
 	searchNote,
 };
 

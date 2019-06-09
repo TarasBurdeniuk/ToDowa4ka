@@ -9,6 +9,7 @@ import './styles/App.style.scss';
 import setAuthToken from './utills/setAuthToken';
 import { loadUser } from './action/auth';
 import store from './store/configureStore';
+import PrivateRoute from './components/PrivateRoute';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -28,7 +29,7 @@ function App() {
 					<Switch>
 						<Route exact path='/register' component={Register}/>
 						<Route exact path='/login' component={Login}/>
-						<Route exact path='/notes' component={Body}/>
+						<PrivateRoute exact path='/notes' component={Body}/>
 					</Switch>
 				</section>
 			</Fragment>

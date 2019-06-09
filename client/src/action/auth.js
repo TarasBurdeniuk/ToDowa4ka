@@ -7,7 +7,9 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	LOGOUT,
+	CLEAR_NOTELIST,
 } from './types';
+import { getNotes } from './note';
 
 import setAuthToken from '../utills/setAuthToken';
 
@@ -77,6 +79,7 @@ export const login = (email, password) => async dispatch => {
 		});
 
 		dispatch(loadUser());
+		dispatch(getNotes());
 	} catch (err) {
 		const errors = err.response.data.errors;
 		console.error(errors);
@@ -91,5 +94,8 @@ export const login = (email, password) => async dispatch => {
 export const logout = () => dispatch => {
 	dispatch({
 		type: LOGOUT,
+	});
+	dispatch({
+		type: CLEAR_NOTELIST,
 	});
 };
