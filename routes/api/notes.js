@@ -38,7 +38,7 @@ router.post('/', [auth, [
 //access  Private
 router.get('/', auth, async (req, res) => {
 	try {
-		const notes = await Note.find({ user: req.user.id } ).sort({ date: -1 });
+		const notes = await Note.find({ user: req.user.id }).sort({ date: -1 });
 		res.json(notes);
 	} catch (err) {
 		console.error(err.message);
@@ -51,7 +51,7 @@ router.get('/', auth, async (req, res) => {
 //access  Private
 router.get('/:id', auth, async (req, res) => {
 	try {
-		const note = await Note.find({ user: req.user.id, _id: req.params.id} );
+		const note = await Note.find({ user: req.user.id, _id: req.params.id });
 
 		if (!note.length) {
 			return res.status(404).json({ msg: 'Note not found' });

@@ -1,24 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteNote } from '../action/note';
+import { deleteNote, getNotes } from '../action/note';
 
 import NoteListItem from '../components/NoteListItem';
 import '../styles/TodoList.style.scss';
 
-const NoteList = ({ noteList, deleteNote, searchingNote }) => {
-	const itemsNoteList = noteList.map(item =>
-		<NoteListItem
-			key={item.id}
-			{...item}
-			removeNote={() => deleteNote(noteList, item.id)}
-		/>);
+const NoteList = ({ noteList, deleteNote, searchingNote, getNotes }) => {
+	useEffect(() => {
+		getNotes();
+	}, [getNotes]);
 
-	const searchingNoteItems = searchingNote.map(item =>
+	const itemsNoteList = noteList.map(note =>
 		<NoteListItem
-			key={item.id}
-			{...item}
-			removeNote={() => deleteNote(noteList, item.id)}
+			key={note._id}
+			{...note}
+			date={new Date(note.date).toUTCString()}
+			removeNote={() => deleteNote(noteList, note._id)}
+		/>,
+	);
+
+	const searchingNoteItems = searchingNote.map(note =>
+		<NoteListItem
+			key={note._id}
+			{...note}
+			date={new Date(note.date).toUTCString()}
+			removeNote={() => deleteNote(noteList, note._id)}
 		/>);
 
 	return (
@@ -31,6 +38,7 @@ const NoteList = ({ noteList, deleteNote, searchingNote }) => {
 NoteList.propTypes = {
 	noteList: PropTypes.array.isRequired,
 	deleteNote: PropTypes.func.isRequired,
+	getNotes: PropTypes.func.isRequired,
 	searchingNote: PropTypes.array.isRequired,
 };
 
@@ -41,6 +49,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = {
 	deleteNote,
+	getNotes,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteList);
