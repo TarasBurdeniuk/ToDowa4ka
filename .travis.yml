@@ -3,9 +3,11 @@ dist: trusty
 cache:
   directories:
     - $HOME/client/node_modules
+    - $HOME/node_modules
 
 before_script:
   - npm install --prefix client
+  - npm install
 
 script:
-  - npm run build --prefix client
+  - npm run dev
