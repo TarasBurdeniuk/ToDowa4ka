@@ -3,6 +3,10 @@ const connectDB = require('./config/db');
 
 const app = express();
 
+setInterval(function () {
+	app.get('https://todowa4ka.herokuapp.com/')
+}, 300000);
+
 //Connect db
 connectDB();
 
