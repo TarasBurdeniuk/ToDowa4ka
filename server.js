@@ -2,9 +2,10 @@ const express = require('express');
 const connectDB = require('./config/db');
 
 const app = express();
+const router = express.Router();
 
 setInterval(function () {
-	app.get('https://todowa4ka.herokuapp.com/')
+	router.get('https://todowa4ka.herokuapp.com/')
 }, 300000);
 
 //Connect db
