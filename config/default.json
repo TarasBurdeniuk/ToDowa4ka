@@ -1,4 +1,5 @@
 {
     "mongoURI": "mongodb+srv://taras:1234@basex-yb7bi.mongodb.net/todowa4ka?retryWrites=true",
-    "jwtSecret": "mysecrettoken"
+    "jwtSecret": "mysecrettoken",
+    "gmailPass": "75g34tKt8DW3U5w"
 }
