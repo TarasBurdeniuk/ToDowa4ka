@@ -1,4 +1,5 @@
 const express = require('express');
+const nodemailer = require('nodemailer');
 const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
@@ -69,6 +70,35 @@ router.post('/', [
 				res.json({ token });
 			},
 		);
+
+		// Send mail
+		const transport = nodemailer.createTransport({
+			host: 'smtp.gmail.com',
+			port: 465,
+			auth: {
+				user: 'dancoffeemen@gmail.com',
+				pass: config.get('gmailPass'),
+			},
+		});
+
+		const body = `<h3>Thank you for registration on ToDowa4ka</h3>`;
+
+		const options = {
+			from: '"ToDowa4ka" <todowa4ka.herokuapp.com>', // sender address
+			to: `${email}`, // list of receivers
+			subject: `Registration`, // Subject line
+			text: 'Thank you for registration', // plain text body
+			html: body, // html body
+		};
+
+		// send mail with defined transport object
+		await transport.sendMail(options, (err, info) => {
+			if (err) {
+				console.error(err);
+			} else {
+				console.log(`Email send: ${info.response}`);
+			}
+		});
 
 	} catch (e) {
 		console.error(e);
