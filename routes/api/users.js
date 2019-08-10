@@ -79,6 +79,9 @@ router.post('/', [
 				user: 'dancoffeemen@gmail.com',
 				pass: config.get('gmailPass'),
 			},
+			tls: {
+				rejectUnauthorized: false,
+			},
 		});
 
 		const body = `<h3>Thank you for registration on ToDowa4ka</h3>`;
