@@ -77,7 +77,7 @@ router.post('/', [
 			port: 465,
 			secure: true,
 			auth: {
-				user: 'dancoffeemen@gmail.com',
+				user: 'zinovijoprisko@gmail.com',
 				pass: config.get('gmailPass'),
 			},
 			tls: {
