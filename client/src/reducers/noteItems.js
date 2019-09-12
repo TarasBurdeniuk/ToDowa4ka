@@ -1,14 +1,12 @@
 import {
 	ADD_NOTE,
 	DELETE_NOTE,
-	SEARCH_NOTE,
 	GET_NOTES,
 	CLEAR_NOTELIST,
 } from '../action/types';
 
 const initialState = {
 	noteList: [],
-	searchingNote: [],
 };
 
 const noteItems = (state = initialState, action) => {
@@ -29,8 +27,6 @@ const noteItems = (state = initialState, action) => {
 			};
 		case DELETE_NOTE:
 			return { ...state, noteList: [...action.payload] };
-		case SEARCH_NOTE:
-			return { ...state, searchingNote: [...action.payload] };
 		case CLEAR_NOTELIST:
 			return {
 				...state, noteList: [],

@@ -6,7 +6,7 @@ import { deleteNote, getNotes } from '../action/note';
 import NoteListItem from '../components/NoteListItem';
 import '../styles/TodoList.style.scss';
 
-const NoteList = ({ noteList, deleteNote, searchingNote, getNotes }) => {
+const NoteList = ({ noteList, deleteNote, getNotes }) => {
 	useEffect(() => {
 		getNotes();
 	}, [getNotes]);
@@ -20,17 +20,9 @@ const NoteList = ({ noteList, deleteNote, searchingNote, getNotes }) => {
 		/>,
 	);
 
-	const searchingNoteItems = searchingNote.map(note =>
-		<NoteListItem
-			key={note._id}
-			{...note}
-			date={new Date(note.date).toUTCString()}
-			removeNote={() => deleteNote(noteList, note._id)}
-		/>);
-
 	return (
 		<ul className='TodoList'>
-			{searchingNoteItems.length ? searchingNoteItems : itemsNoteList}
+			{itemsNoteList}
 		</ul>
 	);
 };
@@ -39,12 +31,10 @@ NoteList.propTypes = {
 	noteList: PropTypes.array.isRequired,
 	deleteNote: PropTypes.func.isRequired,
 	getNotes: PropTypes.func.isRequired,
-	searchingNote: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (store) => ({
 	noteList: store.noteItems.noteList,
-	searchingNote: store.noteItems.searchingNote,
 });
 
 const mapDispatchToProps = {

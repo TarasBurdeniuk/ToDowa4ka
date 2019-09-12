@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { addNote, searchNote } from '../action/note';
+import { addNote } from '../action/note';
 import ButtonForm from '../components/ButtonForm';
 import '../styles/Form.style.scss';
 
-import InputBase from '@material-ui/core/InputBase';
 import { styles } from '../styles/Header.style';
 import { withStyles } from '@material-ui/core/styles';
 
-const Form = ({ classes, addNote, searchNote, noteList }) => {
+const Form = ({ addNote }) => {
 
 	const [formData, setText] = useState({
 		text: '',
@@ -31,20 +30,6 @@ const Form = ({ classes, addNote, searchNote, noteList }) => {
 				}}
 			>
 				<div className='Form-group'>
-					<InputBase
-						placeholder="Search…"
-						classes={{
-							root: classes.inputRoot,
-							input: classes.inputInput,
-						}}
-						onChange={(e) => {
-							searchNote(noteList, e.target.value);
-						}}
-						onBlur={(e) => {
-							e.target.value = '';
-							searchNote(noteList, e.target.value);
-						}}
-					/>
 					<label
 						className='Form-label'
 						htmlFor='noteTitle'
@@ -84,18 +69,15 @@ const Form = ({ classes, addNote, searchNote, noteList }) => {
 
 Form.propTypes = {
 	addNote: PropTypes.func.isRequired,
-	searchNote: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (store) => ({
 	title: store.noteItems.title,
 	text: store.noteItems.text,
-	noteList: store.noteItems.noteList,
 });
 
 const mapDispatchToProps = {
 	addNote,
-	searchNote,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Form));
