@@ -2,7 +2,6 @@ import axios from 'axios';
 import {
 	ADD_NOTE,
 	DELETE_NOTE,
-	SEARCH_NOTE,
 	GET_NOTES,
 } from './types';
 
@@ -55,15 +54,15 @@ export const deleteNote = (list, id) => async dispatch => {
 };
 
 //Search note
-export const searchNote = (noteLIst, searchingWord) => dispatch => {
-	const newNoteList = noteLIst.filter(item => {
-		const w = item.text.toLowerCase().split(' ');
-
-		return (Object.is(item.title, searchingWord) || w.includes(searchingWord));
-	});
-
-	dispatch({
-		type: SEARCH_NOTE,
-		payload: newNoteList,
-	});
-};
+// export const searchNote = (noteLIst, searchingWord) => dispatch => {
+// 	const newNoteList = noteLIst.filter(item => {
+// 		const w = item.text.toLowerCase().split(' ');
+//
+// 		return (Object.is(item.title, searchingWord) || w.includes(searchingWord));
+// 	});
+//
+// 	dispatch({
+// 		type: SEARCH_NOTE,
+// 		payload: newNoteList,
+// 	});
+// };
