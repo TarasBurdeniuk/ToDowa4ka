@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 
 const NoteListItem = ({ title, text, removeNote, date }) => {
+	console.log('Note list item')
 
 	return (
 		<li className='TodoList-item'>

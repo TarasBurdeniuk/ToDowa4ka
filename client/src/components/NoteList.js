@@ -1,24 +1,31 @@
 import React, { useEffect } from 'react';
-import { PropTypes } from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { deleteNote, getNotes } from '../action/note';
 
 import NoteListItem from '../components/NoteListItem';
 import '../styles/TodoList.style.scss';
 
-const NoteList = ({ noteList, deleteNote, getNotes }) => {
-	useEffect(() => {
-		getNotes();
-	}, [getNotes]);
+const NoteList = () => {
+	console.log('NoteList render');
+	const dispatch = useDispatch();
 
-	const itemsNoteList = noteList.map(note =>
-		<NoteListItem
+	const noteList = useSelector(state => state.noteItems.noteList);
+
+	useEffect(() => {
+		dispatch(getNotes());
+	}, [dispatch]);
+
+
+
+	const itemsNoteList = noteList.map(note => {
+		console.log('render item note');
+		return <NoteListItem
 			key={note._id}
 			{...note}
 			date={new Date(note.date).toUTCString()}
-			removeNote={() => deleteNote(noteList, note._id)}
-		/>,
-	);
+			removeNote={() => dispatch(deleteNote(note._id))}
+		/>
+	});
 
 	return (
 		<ul className='TodoList'>
@@ -27,19 +34,4 @@ const NoteList = ({ noteList, deleteNote, getNotes }) => {
 	);
 };
 
-NoteList.propTypes = {
-	noteList: PropTypes.array.isRequired,
-	deleteNote: PropTypes.func.isRequired,
-	getNotes: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (store) => ({
-	noteList: store.noteItems.noteList,
-});
-
-const mapDispatchToProps = {
-	deleteNote,
-	getNotes,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NoteList);
+export default NoteList;

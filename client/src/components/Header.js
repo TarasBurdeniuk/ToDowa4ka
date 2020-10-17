@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -10,7 +9,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { styles } from '../styles/Header.style';
 import { logout } from '../action/auth';
 
-const PrimarySearchAppBar = ({ classes, auth: { isAuthenticated, loading }, logout }) => {
+const PrimarySearchAppBar = ({ classes }) => {
+	const dispatch = useDispatch();
+	const { isAuthenticated, loading } = useSelector(state => state.auth);
 
 	const authLinks = (
 		<Fragment>
@@ -18,7 +19,7 @@ const PrimarySearchAppBar = ({ classes, auth: { isAuthenticated, loading }, logo
 				<Link
 					className='link-light'
 					to="/login"
-					onClick={logout}
+					onClick={() => dispatch(logout())}
 				>Log Out</Link>
 			</Button>
 		</Fragment>
@@ -46,19 +47,4 @@ const PrimarySearchAppBar = ({ classes, auth: { isAuthenticated, loading }, logo
 	);
 };
 
-PrimarySearchAppBar.propTypes = {
-	classes: PropTypes.object.isRequired,
-	isAuthenticated: PropTypes.bool,
-	loading: PropTypes.bool,
-	logout: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
-	auth: state.auth,
-});
-
-const mapDispatchToProps = {
-	logout,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PrimarySearchAppBar));
+export default withStyles(styles)(PrimarySearchAppBar);

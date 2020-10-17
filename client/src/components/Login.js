@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -38,8 +37,10 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = () => {
 	const classes = useStyles();
+	const dispatch = useDispatch();
+	const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
 	const [formData, setFormData] = useState({
 		email: '',
@@ -55,7 +56,7 @@ const Login = ({ login, isAuthenticated }) => {
 		if (!email || !password) {
 			return console.error('Enter email or password');
 		}
-		login(email, password);
+		dispatch(login(email, password));
 	};
 
 	if (isAuthenticated) {
@@ -124,17 +125,4 @@ const Login = ({ login, isAuthenticated }) => {
 	);
 };
 
-Login.propTypes = {
-	login: PropTypes.func.isRequired,
-	isAuthenticated: PropTypes.bool,
-};
-
-const mapStateToProps = state => ({
-	isAuthenticated: state.auth.isAuthenticated,
-});
-
-const mapDispatchToProps = {
-	login,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,9 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
 import { register } from '../action/auth';
-import { PropTypes } from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -39,8 +37,10 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const Register = ({ register, isAuthenticated }) => {
+const Register = () => {
 	const classes = useStyles();
+	const dispatch = useDispatch();
+	const { isAuthenticated } = useSelector(state => state.auth);
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -58,7 +58,7 @@ const Register = ({ register, isAuthenticated }) => {
 		if (password !== password2 || !name || !email) {
 			console.error('Password do not match');
 		} else {
-			register({ name, email, password });
+			dispatch(register({ name, email, password }));
 		}
 	};
 
@@ -150,17 +150,4 @@ const Register = ({ register, isAuthenticated }) => {
 	);
 };
 
-Register.propTypes = {
-	register: PropTypes.func.isRequired,
-	isAuthenticated: PropTypes.bool,
-};
-
-const mapStateToProps = state => ({
-	isAuthenticated: state.auth.isAuthenticated,
-});
-
-const mapDispatchToProps = {
-	register,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default Register;

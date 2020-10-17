@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { PropTypes } from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addNote } from '../action/note';
 import ButtonForm from '../components/ButtonForm';
 import '../styles/Form.style.scss';
-
 import { styles } from '../styles/Header.style';
 import { withStyles } from '@material-ui/core/styles';
 
-const Form = ({ addNote }) => {
+const Form = () => {
+	console.log('Form');
+	const dispatch = useDispatch();
 
 	const [formData, setText] = useState({
 		text: '',
@@ -19,15 +19,17 @@ const Form = ({ addNote }) => {
 
 	const onChange = e => setText({ ...formData, [e.target.name]: e.target.value });
 
+	const handleAddNote = (e) => {
+		e.preventDefault();
+		if (!title || !text) return;
+		dispatch(addNote(formData));
+		setText({ text: '', title: '' });
+	};
+
 	return (
 		<div className='Form'>
 			<form
-				onSubmit={(e) => {
-					e.preventDefault();
-					if (!title || !text) return;
-					addNote(formData);
-					setText({ text: '', title: '' });
-				}}
+				onSubmit={(e) => handleAddNote(e)}
 			>
 				<div className='Form-group'>
 					<label
@@ -67,17 +69,4 @@ const Form = ({ addNote }) => {
 	);
 };
 
-Form.propTypes = {
-	addNote: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (store) => ({
-	title: store.noteItems.title,
-	text: store.noteItems.text,
-});
-
-const mapDispatchToProps = {
-	addNote,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Form));
+export default withStyles(styles)(Form);

@@ -4,10 +4,6 @@ const connectDB = require('./config/db');
 const app = express();
 const router = express.Router();
 
-setInterval(function () {
-	router.get('https://todowa4ka.herokuapp.com/')
-}, 300000);
-
 //Connect db
 connectDB();
 
