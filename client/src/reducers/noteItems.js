@@ -1,39 +1,35 @@
-import {
-	ADD_NOTE,
-	DELETE_NOTE,
-	GET_NOTES,
-	CLEAR_NOTELIST,
-} from '../action/types';
+import {createAction, handleActions} from "redux-actions";
 
-const initialState = {
-	noteList: [],
-};
+const addNote = createAction('addNote');
+const getNotes = createAction('getNotes');
+const deleteNote = createAction('deleteNote');
+const clearNotes = createAction('clearNotes');
 
-const noteItems = (state = initialState, action) => {
-	switch (action.type) {
-		case GET_NOTES:
-			return {
-				...state, noteList: action.payload,
-			};
-		case ADD_NOTE:
-			return {
-				...state, noteList: [...state.noteList, {
-					_id: action.payload._id,
-					title: action.payload.title,
-					text: action.payload.text,
-					date: action.payload.date,
-					user: action.payload.user,
-				}],
-			};
-		case DELETE_NOTE:
-			return { ...state, noteList: [...action.payload] };
-		case CLEAR_NOTELIST:
-			return {
-				...state, noteList: [],
-			};
-		default:
-			return { ...state };
-	}
-};
+const noteReducer = handleActions(
+    {
+        [addNote]: (state, {payload}) => {
+            console.log('add note: ', payload);
+            return {
+                ...state,
+                noteList: [payload, ...state.noteList]
+            }
+        },
+        [getNotes]: (state, {payload}) => ({
+            ...state,
+            noteList: payload,
+        }),
+        [deleteNote]: (state, {payload}) => ({
+            ...state,
+            noteList: state.noteList.filter(item => item._id !== payload)
+        }),
+        [clearNotes]: (state) => ({
+            ...state,
+            noteList: [],
+        })
+    },
+    {
+        noteList: [],
+    }
+);
 
-export default noteItems;
+export default noteReducer;
