@@ -1,57 +1,56 @@
-import {
-	REGISTER_FAIL,
-	REGISTER_SUCCESS,
-	USER_LOADED,
-	AUTH_ERROR,
-	LOGIN_FAIL,
-	LOGIN_SUCCESS,
-	LOGOUT,
-	ACCOUNT_DELETED,
-} from '../action/types';
+import {createAction, handleActions} from "redux-actions";
 
-const initialState = {
-	token: localStorage.getItem('token'),
-	isAuthenticated: null,
-	loading: true,
-	user: null,
-};
+const userLoaded = createAction('userLoaded');
+const registrationSuccess = createAction('registrationSuccess');
+const loginSuccess = createAction('loginSuccess');
+const authDelete = createAction('authDelete');
 
-const auth = (state = initialState, action) => {
-	const { type, payload } = action;
+const auth = handleActions(
+    {
+        [userLoaded]: (state, {payload}) => ({
+            ...state,
+            isAuthenticated: true,
+            loading: false,
+            user: payload,
+        }),
 
-	switch (type) {
-		case USER_LOADED:
-			return {
-				...state,
-				isAuthenticated: true,
-				loading: false,
-				user: payload,
-			};
-		case REGISTER_SUCCESS:
-		case LOGIN_SUCCESS:
-			localStorage.setItem('token', payload.token);
-			return {
-				...state,
-				...payload,
-				isAuthenticated: true,
-				loading: false,
-			};
-		case REGISTER_FAIL:
-		case AUTH_ERROR:
-		case LOGIN_FAIL:
-		case LOGOUT:
-		case ACCOUNT_DELETED:
-			localStorage.removeItem('token');
-			return {
-				...state,
-				token: null,
-				isAuthenticated: false,
-				loading: false,
-				user: null,
-			};
-		default:
-			return state;
-	}
-};
+        [registrationSuccess]: (state, {payload}) => {
+            localStorage.setItem('token', payload.token);
+            return {
+                ...state,
+                ...payload,
+                isAuthenticated: true,
+                loading: false,
+            };
+        },
+
+        [loginSuccess]: (state, {payload}) => {
+            localStorage.setItem('token', payload.token);
+            return {
+                ...state,
+                ...payload,
+                isAuthenticated: true,
+                loading: false,
+            };
+        },
+
+        [authDelete]: (state) => {
+            localStorage.removeItem('token');
+            return {
+                ...state,
+                token: null,
+                isAuthenticated: false,
+                loading: false,
+                user: null,
+            }
+        }
+    },
+    {
+        token: localStorage.getItem('token'),
+        isAuthenticated: null,
+        loading: true,
+        user: null,
+    }
+);
 
 export default auth;

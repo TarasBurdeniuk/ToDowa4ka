@@ -7,7 +7,6 @@ import { styles } from '../styles/Header.style';
 import { withStyles } from '@material-ui/core/styles';
 
 const Form = () => {
-	console.log('Form');
 	const dispatch = useDispatch();
 
 	const [formData, setText] = useState({

@@ -1,53 +1,49 @@
 import axios from 'axios';
-import {
-	ADD_NOTE,
-	DELETE_NOTE,
-	GET_NOTES,
-} from './types';
 
-//Add note
+/**
+ * Add new note
+ * @param {object} note
+ * @returns {object}
+ */
 export const addNote = note => async dispatch => {
-	const config = {
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	};
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
 
-	try {
-		const res = await axios.post(`/api/notes`, note, config);
-		dispatch({
-			type: ADD_NOTE,
-			payload: res.data,
-		});
-	} catch (err) {
-		console.error(err.message);
-	}
+    try {
+        const res = await axios.post(`/api/notes`, note, config);
+        dispatch({type: 'addNote', payload: res.data})
+    } catch (err) {
+        console.error(err.message);
+    }
 };
 
-//Get notes
+/**
+ * Get all notes
+ * @returns list of notes
+ */
 export const getNotes = () => async dispatch => {
-	try {
-		const res = await axios.get('/api/notes');
+    try {
+        const res = await axios.get('/api/notes');
 
-		dispatch({
-			type: GET_NOTES,
-			payload: res.data,
-		});
-	} catch (err) {
-		console.error(err.message);
-	}
+        dispatch({type: 'getNotes', payload: res.data});
+    } catch (err) {
+        console.error(err.message);
+    }
 };
 
-//Delete note
+/**
+ * Delete note
+ * @param {number} id
+ */
 export const deleteNote = (id) => async dispatch => {
-	try {
-		await axios.delete(`/api/notes/${id}`);
+    try {
+        await axios.delete(`/api/notes/${id}`);
 
-		dispatch({
-			type: DELETE_NOTE,
-			payload: id,
-		});
-	} catch (err) {
-		console.error(err.message);
-	}
+        dispatch({type: 'deleteNote', payload: id});
+    } catch (err) {
+        console.error(err.message);
+    }
 };
