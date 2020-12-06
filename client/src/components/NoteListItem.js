@@ -1,8 +1,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import moment from 'moment';
 
 const NoteListItem = ({ title, text, removeNote, date }) => {
-	console.log('Note list item')
 
 	return (
 		<li className='TodoList-item'>
@@ -15,7 +15,7 @@ const NoteListItem = ({ title, text, removeNote, date }) => {
 				</button>
 			</div>
 			<p className='TodoList-itemDescription'>{text}</p>
-			<span className='TodoList-itemDate'>{date}</span>
+			<span className='TodoList-itemDate'>{moment(date).format('MMMM Do YYYY, HH:mm:ss')}</span>
 		</li>
 	);
 };

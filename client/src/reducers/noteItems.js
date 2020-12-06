@@ -7,13 +7,10 @@ const clearNotes = createAction('clearNotes');
 
 const noteReducer = handleActions(
     {
-        [addNote]: (state, {payload}) => {
-            console.log('add note: ', payload);
-            return {
-                ...state,
-                noteList: [payload, ...state.noteList]
-            }
-        },
+        [addNote]: (state, {payload}) => ({
+            ...state,
+            noteList: [payload, ...state.noteList]
+        }),
         [getNotes]: (state, {payload}) => ({
             ...state,
             noteList: payload,
