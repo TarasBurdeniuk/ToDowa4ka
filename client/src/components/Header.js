@@ -1,17 +1,16 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { observer } from "mobx-react";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { styles } from '../styles/Header.style';
-import { logout } from '../action/auth';
+import { useRootModel } from "../models/RootStore";
 
-const PrimarySearchAppBar = ({ classes }) => {
-	const dispatch = useDispatch();
-	const { isAuthenticated, loading } = useSelector(state => state.auth);
+const PrimarySearchAppBar = observer(({ classes }) => {
+	const { auth:  { isAuthenticated, loading, logout } } = useRootModel();
 
 	const authLinks = (
 		<Fragment>
@@ -19,7 +18,7 @@ const PrimarySearchAppBar = ({ classes }) => {
 				<Link
 					className='link-light'
 					to="/login"
-					onClick={() => dispatch(logout())}
+					onClick={() => logout()}
 				>Log Out</Link>
 			</Button>
 		</Fragment>
@@ -45,6 +44,6 @@ const PrimarySearchAppBar = ({ classes }) => {
 			</AppBar>
 		</div>
 	);
-};
+});
 
 export default withStyles(styles)(PrimarySearchAppBar);

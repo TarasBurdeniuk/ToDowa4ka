@@ -1,9 +1,13 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+// import {useSelector} from 'react-redux';
 
-const PrivateRoute = ({component: Component, ...rest}) => {
-    const auth = useSelector(state => state.auth);
+import {observer} from "mobx-react";
+import {useRootModel} from "../models/RootStore";
+
+const PrivateRoute = observer(({component: Component, ...rest}) => {
+    // const auth = useSelector(state => state.auth);
+    const {auth} = useRootModel();
 
     const {isAuthenticated, loading} = auth;
 
@@ -14,6 +18,6 @@ const PrivateRoute = ({component: Component, ...rest}) => {
                 <Component{...props}/>
             )}/>
     );
-};
+});
 
 export default PrivateRoute;

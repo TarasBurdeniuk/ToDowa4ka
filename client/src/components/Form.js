@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addNote } from '../action/note';
+// import { useDispatch } from 'react-redux';
+// import { addNote } from '../action/note';
 import ButtonForm from '../components/ButtonForm';
 import '../styles/Form.style.scss';
 import { styles } from '../styles/Header.style';
 import { withStyles } from '@material-ui/core/styles';
+import { useRootModel } from "../models/RootStore";
 
 const Form = () => {
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
+	const { notes: { addNote } } = useRootModel();
 
 	const [formData, setText] = useState({
 		text: '',
@@ -21,7 +23,7 @@ const Form = () => {
 	const handleAddNote = (e) => {
 		e.preventDefault();
 		if (!title || !text) return;
-		dispatch(addNote(formData));
+		addNote(formData);
 		setText({ text: '', title: '' });
 	};
 

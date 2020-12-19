@@ -7,17 +7,17 @@ import Register from './components/Register';
 import Login from './components/Login';
 import './styles/App.style.scss';
 import setAuthToken from './utills/setAuthToken';
-import { loadUser } from './action/auth';
-import store from './store/configureStore';
 import PrivateRoute from './components/PrivateRoute';
+import { useRootModel } from "./models/RootStore";
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
 }
 
 function App() {
+	const { auth: { loadUser } } = useRootModel();
 	useEffect(() => {
-		store.dispatch(loadUser());
+		loadUser();
 	}, []);
 
 	return (

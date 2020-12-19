@@ -3,7 +3,6 @@ import { PropTypes } from 'prop-types';
 import moment from 'moment';
 
 const NoteListItem = ({ title, text, removeNote, date }) => {
-
 	return (
 		<li className='TodoList-item'>
 			<div className='TodoList-itemBlock'>

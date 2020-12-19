@@ -1,21 +1,25 @@
 import React, {useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {deleteNote, getNotes} from '../action/note';
+import {observer} from "mobx-react";
+import {useRootModel} from "../models/RootStore";
 
 import NoteListItem from '../components/NoteListItem';
 import '../styles/TodoList.style.scss';
 
-const NoteList = () => {
-    const dispatch = useDispatch();
-
-    const noteList = useSelector(state => state.noteReducer.noteList);
+const NoteList = observer(() => {
+    const {notes: {getNotes, deleteNote, noteList, load, isLoading}} = useRootModel();
 
     useEffect(() => {
-        dispatch(getNotes());
-    }, [dispatch]);
+        console.log('useEffect get notes')
+        load();
+        getNotes();
+    }, []);
+
+    if (isLoading) {
+        return <div className='Loader'>Loading...</div>
+    }
 
     const removeNote = (id) => {
-        dispatch(deleteNote(id))
+        deleteNote(id)
     };
 
     const itemsNoteList = noteList.map(note => (
@@ -32,6 +36,6 @@ const NoteList = () => {
             {itemsNoteList}
         </ul>
     );
-};
+});
 
 export default NoteList;

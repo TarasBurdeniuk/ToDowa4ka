@@ -8,6 +8,7 @@
     &-listContainer {
         padding: 20px;
         flex-grow: 1;
+        display: flex;
     }
 
     @media screen and (max-device-width: 900px) {

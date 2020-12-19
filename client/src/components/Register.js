@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { observer } from "mobx-react";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,7 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { register } from '../action/auth';
+import { useRootModel } from "../models/RootStore";
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -37,10 +37,10 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const Register = () => {
+const Register = observer(() => {
 	const classes = useStyles();
-	const dispatch = useDispatch();
-	const { isAuthenticated } = useSelector(state => state.auth);
+
+	const { auth: { isAuthenticated, register } } = useRootModel();
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -58,7 +58,7 @@ const Register = () => {
 		if (password !== password2 || !name || !email) {
 			console.error('Password do not match');
 		} else {
-			dispatch(register({ name, email, password }));
+			register({ name, email, password });
 		}
 	};
 
@@ -148,6 +148,6 @@ const Register = () => {
 			</div>
 		</Container>
 	);
-};
+});
 
 export default Register;
