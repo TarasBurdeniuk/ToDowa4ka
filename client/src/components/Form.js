@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import ButtonForm from './ButtonForm';
 import '../styles/Form.style.scss';
-import { styles } from '../styles/Header.style';
+import styles from '../styles/Header.style';
 import { useRootModel } from '../models/RootStore';
 
 const Form = () => {

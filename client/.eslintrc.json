@@ -1,32 +1,16 @@
 {
-  "plugins": [
-    "react",
-    "prettier",
-    "import",
-    "jsx-a11y",
-    "react-hooks"
-  ],
-  "parser": "babel-eslint",
+  "plugins": ["react", "prettier", "import", "jsx-a11y", "react-hooks"],
   "env": {
     "es6": true,
     "browser": true
   },
-  "extends": [
-    "airbnb",
-    "prettier",
-    "prettier/react",
-    "plugin:react/recommended",
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["airbnb", "prettier", "prettier/react", "plugin:react/recommended", "eslint:recommended", "plugin:prettier/recommended"],
   "rules": {
     "no-use-before-define": "off",
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js"
-        ]
+        "extensions": [".js"]
       }
     ],
     "react/prop-types": "warn",
@@ -60,22 +44,18 @@
     "no-console": [
       "error",
       {
-        "allow": [
-          "warn",
-          "error"
-        ]
+        "allow": ["warn", "error"]
       }
     ],
     "no-case-declarations": "off",
     "no-underscore-dangle": [
       "error",
       {
-        "allow": [
-          "_id"
-        ]
+        "allow": ["_id"]
       }
     ],
-    "jsx-a11y/label-has-associated-control": "off"
+    "jsx-a11y/label-has-associated-control": "off",
+    "react-hooks/exhaustive-deps": "off"
   },
   "globals": {
     "fetch": false
