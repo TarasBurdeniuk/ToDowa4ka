@@ -20,7 +20,7 @@ function App() {
   } = useRootModel();
   useEffect(() => {
     loadUser();
-  }, []);
+  }, [loadUser]);
 
   return (
     <Router>

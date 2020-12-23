@@ -12,7 +12,7 @@ const NoteList = observer(() => {
   useEffect(() => {
     load();
     getNotes();
-  }, []);
+  }, [load, getNotes]);
 
   if (isLoading) {
     return <div className='Loader'>Loading...</div>;
