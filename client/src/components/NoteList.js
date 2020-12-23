@@ -1,37 +1,38 @@
-import React, {useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {deleteNote, getNotes} from '../action/note';
-
-import NoteListItem from '../components/NoteListItem';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react';
+import { useRootModel } from '../models/RootStore';
+import NoteListItem from './NoteListItem';
 import '../styles/TodoList.style.scss';
 
-const NoteList = () => {
-    const dispatch = useDispatch();
+const NoteList = observer(() => {
+  const {
+    notes: { getNotes, deleteNote, noteList, load, isLoading },
+  } = useRootModel();
 
-    const noteList = useSelector(state => state.noteReducer.noteList);
+  useEffect(() => {
+    load();
+    getNotes();
+  }, [load, getNotes]);
 
-    useEffect(() => {
-        dispatch(getNotes());
-    }, [dispatch]);
+  if (isLoading) {
+    return <div className='Loader'>Loading...</div>;
+  }
 
-    const removeNote = (id) => {
-        dispatch(deleteNote(id))
-    };
+  const removeNote = (id) => {
+    deleteNote(id);
+  };
 
-    const itemsNoteList = noteList.map(note => (
-        <NoteListItem
-            key={note._id}
-            {...note}
-            date={new Date(note.date).toUTCString()}
-            removeNote={() => removeNote(note._id)}
-        />
-    ));
+  const itemsNoteList = noteList.map((note) => (
+    <NoteListItem
+      key={note._id}
+      text={note.text}
+      title={note.title}
+      date={new Date(note.date).toUTCString()}
+      removeNote={() => removeNote(note._id)}
+    />
+  ));
 
-    return (
-        <ul className='TodoList'>
-            {itemsNoteList}
-        </ul>
-    );
-};
+  return <ul className='TodoList'>{itemsNoteList}</ul>;
+});
 
 export default NoteList;

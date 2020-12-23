@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-import {Provider} from 'react-redux';
-import store from './store/configureStore';
+import { rootStore, RootStoreContext } from './models/RootStore';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App/>
-    </Provider>,
-    document.getElementById('root'));
-
-serviceWorker.unregister();
+  <RootStoreContext.Provider value={rootStore}>
+    <App />
+  </RootStoreContext.Provider>,
+  document.getElementById('root'),
+);
