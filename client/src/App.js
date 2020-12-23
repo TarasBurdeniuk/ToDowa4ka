@@ -8,33 +8,35 @@ import Login from './components/Login';
 import './styles/App.style.scss';
 import setAuthToken from './utills/setAuthToken';
 import PrivateRoute from './components/PrivateRoute';
-import { useRootModel } from "./models/RootStore";
+import { useRootModel } from './models/RootStore';
 
 if (localStorage.token) {
-	setAuthToken(localStorage.token);
+  setAuthToken(localStorage.token);
 }
 
 function App() {
-	const { auth: { loadUser } } = useRootModel();
-	useEffect(() => {
-		loadUser();
-	}, []);
+  const {
+    auth: { loadUser },
+  } = useRootModel();
+  useEffect(() => {
+    loadUser();
+  }, []);
 
-	return (
-		<Router>
-			<Fragment>
-				<PrimarySearchAppBar/>
-				<Route exact path='/' component={Landing}/>
-				<section className="container">
-					<Switch>
-						<Route exact path='/register' component={Register}/>
-						<Route exact path='/login' component={Login}/>
-						<PrivateRoute exact path='/notes' component={Body}/>
-					</Switch>
-				</section>
-			</Fragment>
-		</Router>
-	);
+  return (
+    <Router>
+      <>
+        <PrimarySearchAppBar />
+        <Route exact path='/' component={Landing} />
+        <section className='container'>
+          <Switch>
+            <Route exact path='/register' component={Register} />
+            <Route exact path='/login' component={Login} />
+            <PrivateRoute exact path='/notes' component={Body} />
+          </Switch>
+        </section>
+      </>
+    </Router>
+  );
 }
 
 export default App;

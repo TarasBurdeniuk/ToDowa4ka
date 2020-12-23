@@ -1,41 +1,38 @@
-import React, {useEffect} from 'react';
-import {observer} from "mobx-react";
-import {useRootModel} from "../models/RootStore";
-
-import NoteListItem from '../components/NoteListItem';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react';
+import { useRootModel } from '../models/RootStore';
+import NoteListItem from './NoteListItem';
 import '../styles/TodoList.style.scss';
 
 const NoteList = observer(() => {
-    const {notes: {getNotes, deleteNote, noteList, load, isLoading}} = useRootModel();
+  const {
+    notes: { getNotes, deleteNote, noteList, load, isLoading },
+  } = useRootModel();
 
-    useEffect(() => {
-        console.log('useEffect get notes')
-        load();
-        getNotes();
-    }, []);
+  useEffect(() => {
+    load();
+    getNotes();
+  }, []);
 
-    if (isLoading) {
-        return <div className='Loader'>Loading...</div>
-    }
+  if (isLoading) {
+    return <div className='Loader'>Loading...</div>;
+  }
 
-    const removeNote = (id) => {
-        deleteNote(id)
-    };
+  const removeNote = (id) => {
+    deleteNote(id);
+  };
 
-    const itemsNoteList = noteList.map(note => (
-        <NoteListItem
-            key={note._id}
-            {...note}
-            date={new Date(note.date).toUTCString()}
-            removeNote={() => removeNote(note._id)}
-        />
-    ));
+  const itemsNoteList = noteList.map((note) => (
+    <NoteListItem
+      key={note._id}
+      text={note.text}
+      title={note.title}
+      date={new Date(note.date).toUTCString()}
+      removeNote={() => removeNote(note._id)}
+    />
+  ));
 
-    return (
-        <ul className='TodoList'>
-            {itemsNoteList}
-        </ul>
-    );
+  return <ul className='TodoList'>{itemsNoteList}</ul>;
 });
 
 export default NoteList;
