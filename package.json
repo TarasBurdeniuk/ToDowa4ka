@@ -22,14 +22,14 @@
     "homepage": "https://github.com/TarasBurdeniuk/ToDowa4ka#readme",
     "dependencies": {
         "bcryptjs": "^2.4.3",
-        "config": "^3.2.4",
+        "config": "^3.3.3",
         "express": "^4.17.1",
         "express-validator": "^5.3.1",
-        "gravatar": "^1.8.0",
+        "gravatar": "^1.8.1",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.7.11",
-        "nodemailer": "^6.3.1",
-        "request": "^2.88.0"
+        "mongoose": "^5.11.9",
+        "nodemailer": "^6.4.17",
+        "request": "^2.88.2"
     },
     "devDependencies": {
         "concurrently": "^4.1.2",
